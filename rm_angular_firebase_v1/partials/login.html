@@ -1,0 +1,41 @@
+<!--
+<h2>Login Page</h2>
+
+<form>
+    <label>
+        <span>email</span>
+        <input type="text" ng-model="email" />
+    </label>
+    <label>
+        <span>password</span>
+        <input type="password" ng-model="pass" />
+    </label>
+    <label ng-cloak ng-show="createMode">
+        <span>confirm pass</span>
+        <input type="password" ng-model="confirm" />
+    </label>
+    <button ng-click="login()" ng-hide="createMode">Log In</button>
+    <button ng-click="createMode = true" ng-hide="createMode">Register</button>
+    <button ng-cloak ng-show="createMode" ng-click="createAccount()">Create Account</button>
+    <button ng-cloak ng-show="createMode" ng-click="createMode = false">Cancel</button>
+
+    <p ng-show="err" class="error">{{err}}</p>
+</form>
+-->
+<div class="auth-forms">
+ 
+  <h2>Log In</h2>
+ 
+  <form>
+    <p ng-show="error" class="text-danger">{{ error }}</p>
+    <input type="email" ng-model="email" placeholder="Email" class="form-control"><br>
+    <input type="password" ng-model="pass" placeholder="Password" class="form-control"><br>
+    <input ng-cloak ng-show="createMode" type="password" ng-model="confirm" placeholder="Confirm Password" class="form-control"><br>
+    <button ng-click="login()" class="btn btn-primary" ng-hide="createMode">Log In</button>
+    <button ng-click="createMode = true" class="btn btn-primary" ng-hide="createMode">Register</button>
+    <button ng-cloak ng-show="createMode" class="btn btn-primary" ng-click="createAccount()">Create Account</button>
+    <button ng-cloak ng-show="createMode" class="btn btn-primary" ng-click="createMode = false">Cancel</button>
+    <p ng-show="err" class="error">{{err}}</p>
+  </form>
+ 
+</div>
