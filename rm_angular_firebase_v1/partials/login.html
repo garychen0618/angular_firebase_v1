@@ -35,6 +35,7 @@
     <button ng-click="createMode = true" class="btn btn-primary" ng-hide="createMode">Register</button>
     <button ng-cloak ng-show="createMode" class="btn btn-primary" ng-click="createAccount()">Create Account</button>
     <button ng-cloak ng-show="createMode" class="btn btn-primary" ng-click="createMode = false">Cancel</button>
+    <a ng-click="ResetPassword()">Reset Password?</a>
     <p ng-show="err" class="error">{{err}}</p>
   </form>
  

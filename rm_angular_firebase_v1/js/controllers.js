@@ -10,8 +10,46 @@ angular.module('myApp.controllers', [])
   .controller('RmhomeCtrl', ['$scope', 'syncData', function($scope, syncData) {
       $scope.rmlist = syncData('rmapp', 10);
    }])
+   
+   .controller('TestCtrl', ['$scope', 'syncData', function($scope, syncData) {
+      $scope.rmlist = syncData('Task', 10);
+   }])
+   
+  .controller('sapConfigureCtrl', ['$scope', 'syncData','loginService','$location', function($scope, syncData,loginService,$location) {
+      //$scope.sapConfigure = syncData('sapConfigure', 10);
+//      console.log($scope.auth.user.uid);
+//      console.log($scope.auth.user.name);
+        $scope.sys = {};
+        $scope.name = loginService.firstPartOfEmail($scope.auth.user.email);
+        $scope.sapConfigure = syncData('sapConfigure/'+$scope.name, 10);
+        //console.log($scope.name);
+//        var test = {server: 'vmw5067',
+//                    instance_number:'06'};
+        $scope.test = $scope.sys;
+        $scope.AddConfigure = function(){
+            if($scope.test){
+                $scope.sapConfigure.$add($scope.test);
+                $location.path('/con_list');
+            }
+        }
+   }])
   
-  .controller('DeviceCtrl', ['$scope', 'loginService', function($scope, loginService) {
+  .controller('ConListCtrl', ['$scope', 'syncData','loginService','$location', function($scope, syncData,loginService,$location) {
+        
+         $scope.name = loginService.firstPartOfEmail($scope.auth.user.email);
+         $scope.con_lists = syncData('sapConfigure/'+$scope.name, 10);
+         $scope.NewConfigure = function(){
+             $location.path('/sap_configure');
+         };
+         $scope.DeleteCon = function(conid){
+             //console.log(conid);
+             //loginService.assertAuth();
+             $scope.con_lists.$remove(conid);
+         };
+   }])
+   
+  .controller('DeviceCtrl', ['$scope', 'syncData','loginService', function($scope, syncData,loginService) {
+      
       $scope.device = device;
       var states = {};
             states[Connection.UNKNOWN]  = 'Unknown connection';
@@ -25,6 +63,18 @@ angular.module('myApp.controllers', [])
         var networkState = navigator.connection.type;
         $scope.connection = states[networkState];
         $scope.connect_time = new Date().toLocaleTimeString().split(" ")[0];
+        
+        $scope.name = loginService.firstPartOfEmail($scope.auth.user.email);
+        $scope.devices = syncData('devices/'+$scope.name, 10);
+        
+        $scope.addDevice = function() {
+         if( $scope.device ) {
+                $scope.devices.$add($scope.device);
+         }
+        };
+        $scope.DeleteDevice = function(deviceid){
+            $scope.devices.$remove(deviceid);
+        };
    }])
    
   .controller('ChatCtrl', ['$scope', 'syncData', function($scope, syncData) {
@@ -84,7 +134,16 @@ angular.module('myApp.controllers', [])
             });
          }
       };
-
+      
+      $scope.ResetPassword = function(){
+          if( !$scope.email ) {
+            $scope.err = 'Please enter an email address';
+         }
+         else{
+             loginService.sendPasswordResetEmail($scope.email);
+         }
+      };
+      
       function assertValidLoginAttempt() {
          if( !$scope.email ) {
             $scope.err = 'Please enter an email address';

@@ -1,0 +1,36 @@
+<div class="auth-forms">
+ 
+  <h2>New SAP Configuration</h2>
+ 
+  <form>
+    <label>
+    <span>Application Server:</span>
+    <input type="text" ng-model="sys.application_server" placeholder="application_server" class="form-control">
+    </label>
+    <label>
+    <span>Instance Number:</span>
+    <input type="text" ng-model="sys.instance_number" placeholder="instance_number" class="form-control">
+    </label>
+    <label>
+    <span>Client:</span>
+    <input type="text" ng-model="sys.client" placeholder="client" class="form-control">
+    </label>
+    <label>
+    <span>User:</span>
+    <input type="text" ng-model="sys.user" placeholder="user" class="form-control">
+    </label>
+    <label>
+    <span>Password:</span>
+    <input type="password" ng-model="sys.password" placeholder="password" class="form-control">
+    </label>
+    <label>
+    <span>Language:</span>
+    <input type="text" ng-model="sys.language" placeholder="language" class="form-control">
+    </label>
+    <label>
+    <span>Status:</span>
+    <input type="text" ng-model="sys.status" placeholder="status" class="form-control">
+    </label>
+  </form>
+  <button ng-click="AddConfigure()">Add Configure</button>
+</div>

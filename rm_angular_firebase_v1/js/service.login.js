@@ -30,9 +30,20 @@ angular.module('myApp.service.login', ['firebase', 'myApp.service.firebase'])
 
             logout: function() {
                assertAuth();
-               auth.$logout();
+               auth.$logout();               
             },
-
+            
+            sendPasswordResetEmail: function(email){
+                assertAuth();
+                //console.log('Error1:');
+                auth.$sendPasswordResetEmail(email, function(error, success) {
+                    //console.log('Error:');
+                    if (!error) {
+                      console.log('Password reset email sent successfully');
+                    }
+                  });
+            },
+            
             changePassword: function(opts) {
                assertAuth();
                var cb = opts.callback || function() {};
@@ -51,12 +62,23 @@ angular.module('myApp.service.login', ['firebase', 'myApp.service.firebase'])
                assertAuth();
                auth.$createUser(email, pass).then(function(user) { callback && callback(null, user) }, callback);
             },
+            
+            firstPartOfEmail: function(email){
+                assertAuth();
+                return ucfirst(email.substr(0, email.indexOf('@'))||'');
+            },
 
             createProfile: profileCreator
          };
 
          function assertAuth() {
             if( auth === null ) { throw new Error('Must call loginService.init() before using its methods'); }
+         }
+         function ucfirst (str) {
+            // credits: http://kevin.vanzonneveld.net
+            str += '';
+            var f = str.charAt(0).toUpperCase();
+            return f + str.substr(1);
          }
       }])
 
@@ -74,12 +96,25 @@ angular.module('myApp.service.login', ['firebase', 'myApp.service.firebase'])
          function firstPartOfEmail(email) {
             return ucfirst(email.substr(0, email.indexOf('@'))||'');
          }
-
+         
          function ucfirst (str) {
             // credits: http://kevin.vanzonneveld.net
             str += '';
             var f = str.charAt(0).toUpperCase();
             return f + str.substr(1);
          }
-      }
+      };
    }]);
+   
+//   .factory('GetUserService', ['', function() {
+//    return {
+//        firstPartOfEmail: function(email) {
+//            return ucfirst(email.substr(0, email.indexOf('@'))||'');
+//        }};
+//        function ucfirst (str) {
+//            // credits: http://kevin.vanzonneveld.net
+//            str += '';
+//            var f = str.charAt(0).toUpperCase();
+//            return f + str.substr(1);
+//         }
+//      }]);

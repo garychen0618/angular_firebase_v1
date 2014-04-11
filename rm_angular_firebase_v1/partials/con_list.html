@@ -1,0 +1,14 @@
+<div class="list-group">
+    <a class="list-group-item active">
+        SAP Configuration Lists
+    </a>
+</div>
+<div class="list-group">
+    <a class="list-group-item" ng-repeat="(conID,con_list) in con_lists">
+        <h4 class="list-group-item-heading">{{con_list.application_server}}</h4>
+        <span class="badge"><i class="glyphicon glyphicon-remove" ng-click="DeleteCon(conID)"></i></span>
+        <p class="list-group-item-text">Client:{{con_list.client}} | Instance Number:{{con_list.instance_number}}</p>
+        <p class="list-group-item-text">User:{{con_list.user}}/{{con_list.password}} | Status:{{con_list.status}}</p>
+    </a>
+</div>
+<button ng-click="NewConfigure()">New Configuration</button>

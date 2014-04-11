@@ -11,10 +11,28 @@ angular.module('myApp.routes', ['ngRoute'])
          controller: 'HomeCtrl'
       });
       
+      $routeProvider.when('/sap_configure', {
+         authRequired: true,
+         templateUrl: 'partials/sap_configure.html',
+         controller: 'sapConfigureCtrl'
+      });
+      
+      $routeProvider.when('/con_list', {
+         authRequired: true,
+         templateUrl: 'partials/con_list.html',
+         controller: 'ConListCtrl'
+      });
+      
       $routeProvider.when('/rmhome', {
          authRequired: true,
          templateUrl: 'partials/rmlist.html',
          controller: 'RmhomeCtrl'
+      });
+      
+      $routeProvider.when('/test', {
+         //authRequired: true,
+         templateUrl: 'partials/test.html',
+         controller: 'TestCtrl'
       });
       
       $routeProvider.when('/chat', {
@@ -23,6 +41,7 @@ angular.module('myApp.routes', ['ngRoute'])
       });
       
       $routeProvider.when('/setting', {
+         authRequired: true,
          templateUrl: 'partials/device.html',
          controller: 'DeviceCtrl'
       });

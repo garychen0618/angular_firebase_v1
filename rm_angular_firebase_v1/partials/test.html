@@ -4,23 +4,12 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
-<!--<html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width">
-    </head>
-    <body>
-        <div>{{rmlist}}</div>
-    </body>
-</html>-->
-
 <div class="container posts-page">
 <!--    <div class="post row" ng-repeat="(RmlistId,Rmlist) in rmlists">
         {{Rmlist.id}},{{RmlistId}}
     </div>-->
     <li class="list-group-item" ng-repeat="(rmId1,rm) in rmlist">
-        <span class="badge">{{rm.count}}</span>{{rmId1}}
-        <a href="#/rmlist/{{rm.id}}">{{rm.name}}</a>
+        <span class="badge">{{rm.EVENT_ID}}</span>{{rmId1}}
+        <a href="#/rmlist/{{rm.REL_CODE}}">{{rm.REL_GROUP}}</a>
     </li>
 </div>
