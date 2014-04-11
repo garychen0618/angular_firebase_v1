@@ -1,7 +1,19 @@
-<div class="container posts-page">
-    <div class="item item-divider">
-        Device	
-    </div>
+<div class="list-group">
+    <a class="list-group-item active">
+        SAP Configuration Lists
+    </a>
+</div>
+<div class="list-group">
+    <a class="list-group-item" ng-repeat="(DeviceID,device) in devices">
+        <h4 class="list-group-item-heading">{{device.model}} | {{device.platform}} | {{device.version}}</h4>
+        <span class="badge"><i class="glyphicon glyphicon-remove" ng-click="DeleteDevice(DeviceID)"></i></span>
+        <p class="list-group-item-text">UUID:{{device.uuid}}</p>
+    </a>
+</div>
+<div class="list-group">
+    <a class="list-group-item active">
+    Current Device
+  	</a>
     <li class="list-group-item">
         Name:  {{device.name}}
     </li>
@@ -20,13 +32,15 @@
     <li class="list-group-item">
         Version:  {{device.version}}
     </li>
-    <div class="item item-divider">
-        Connection	
-    </div>
-    <li class="item">
+    <a class="list-group-item active">
+    Connection
+  	</a>
+    <li class="list-group-item">
         Connection Type:  {{connection}}
     </li>
-    <li class="item">
+    <li class="list-group-item">
         Connection Time:  {{connect_time}}
     </li>
+    
 </div>
+<button type="submit" ng-click="addDevice()">New Device</button>
