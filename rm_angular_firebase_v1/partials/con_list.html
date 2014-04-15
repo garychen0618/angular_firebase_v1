@@ -1,6 +1,14 @@
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#/rmhome/setting">Back</a>
+            </div>
+        </div>
+</div>
+<br><br><br><br>
 <div class="list-group">
-    <a class="list-group-item active">
-        SAP Configuration Lists
+    <a class="list-group-item">
+        SAP System Lists
     </a>
 </div>
 <div class="list-group">
@@ -11,4 +19,4 @@
         <p class="list-group-item-text">User:{{con_list.user}}/{{con_list.password}} | Status:{{con_list.status}}</p>
     </a>
 </div>
-<button ng-click="NewConfigure()">New Configuration</button>
+<button class="btn btn-primary" ng-click="NewConfigure()">New Configuration</button>

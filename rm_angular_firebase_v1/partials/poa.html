@@ -1,0 +1,204 @@
+<div ng-show="po_lists_page">
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#/rmhome">Back</a>
+                <a class="navbar-brand pull-right glyphicon glyphicon-plus" href="#/rmhome/poa/new">New</a>
+            </div>
+        </div>
+    </div><br><br><br><br>
+    <h4 align="center">Purchase Order</h4>
+    <a class="list-group-item" ng-repeat="(poId,po) in polists">
+    <h4 class="list-group-item-heading">{{po.REL_CODE}} / {{po.REL_GROUP}}</h4>
+    <ul class="list-group" ng-repeat="(polistId,polist) in po.PO_HEADERS">
+        <li class="list-group-item" ng-click="DisplayPO(po.REL_CODE,polist)">
+            <h4 class="list-group-item-heading" >[{{polistId}}]{{polist.PO_NUMBER}} / {{polist.CREATED_ON}}</h4>
+            <span class="badge">></span>
+            <p class="list-group-item-text">{{polist.VENDOR}} </p>
+            <p class="list-group-item-text">{{polist.TARGET_VAL}}{{polist.CURRENCY}}<label class="pull-right">{{polist.CREATED_BY}}</label></p>
+        </li>
+    </ul>
+    <p class="list-group-item-text" ng-show="po.RETURN[0].TYPE === 'E'">Message Type:  {{po.RETURN[0].TYPE}}<br>Message Text:  {{po.RETURN[0].MESSAGE}}</p>
+    </a>
+    <div class="navbar navbar-default navbar-fixed-bottom" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#/rmhome">Back</a>
+                <a class="navbar-brand pull-right" href="#/rmhome/poa/rel">Release PO</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div ng-show="po_page">
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" ng-click="po_lists_page = true;
+                    po_page = false">Back</a>
+                <a class="navbar-brand pull-right" ng-click="ApprovePO(rel_code,pos.PO_NUMBER)">Approve</a>
+                <!--<button class="btn navbar-brand " ng-click="ApprovePO(rel_code,pos.PO_NUMBER)">Approve</button>-->
+            </div>
+        </div>
+    </div>
+    <br><br><br><br>
+    <h4> Purchase Order for {{pos.PO_NUMBER}}</h4>
+    <h4>PO Header:</h4>
+    <div class="">
+        <table class="table table-hover">
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>PO_NUMBER</td>
+                    <td><strong>{{pos.PO_NUMBER}}</strong></td>            
+                </tr> 
+                <tr>
+                    <td>2</td>
+                    <td>CREATED_ON</td>
+                    <td>{{pos.CREATED_ON}}</td>            
+                </tr> 
+                <tr>
+                    <td>3</td>
+                    <td>CREATED_BY</td>
+                    <td>{{pos.CREATED_BY}}</td>            
+                </tr> 
+                <tr>
+                    <td>4</td>
+                    <td>VENDOR</td>
+                    <td>{{pos.VENDOR}}</td>            
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>VEND_NAME</td>
+                    <td>{{pos.VEND_NAME}}</td>            
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>PO_NUMBER</td>
+                    <td>{{pos.PO_NUMBER}}</td>            
+                </tr> 
+                <tr>
+                    <td>7</td>
+                    <td>TARGET_VAL</td>
+                    <td>{{pos.TARGET_VAL}}{{pos.CURRENCY}}</td>            
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td>CO_CODE</td>
+                    <td>{{pos.CO_CODE}}</td>            
+                </tr>
+                <tr>
+                    <td>9</td>
+                    <td>PURCH_ORG</td>
+                    <td>{{pos.PURCH_ORG}}</td>            
+                </tr>
+                <tr>
+                    <td>10</td>
+                    <td>PUR_GROUP</td>
+                    <td>{{pos.PUR_GROUP}}</td>            
+                </tr>
+                <tr>
+                    <td>11</td>
+                    <td>DOC_DATE</td>
+                    <td>{{pos.DOC_DATE}}</td>            
+                </tr>
+                <tr>
+                    <td>12</td>
+                    <td>PMNTTRMS</td>
+                    <td>{{pos.PMNTTRMS}}</td>            
+                </tr>
+                <tr>
+                    <td>13</td>
+                    <td>EXCH_RATE</td>
+                    <td>{{pos.EXCH_RATE}}</td>            
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <h4>PO Items:</h4>
+    <ul class="list-group">
+        <li class="list-group-item" ng-repeat="(poitemId,poitem) in pos.PO_ITEMS" ng-click="DisplayItem(poitem)">
+            <h4 class="list-group-item-heading" >[{{poitemId}}]  {{poitem.PO_ITEM}}/{{poitem.PUR_MAT}} {{poitem.SHORT_TEXT}}</h4>
+            <span class="badge">></span>
+            <p class="list-group-item-text">{{poitem.DISP_QUAN}} {{poitem.ORDERPR_UN}} * {{poitem.NET_PRICE}}</p>
+            <p class="list-group-item-text">{{poitem.NET_PRICE * poitem.DISP_QUAN}}</p>
+        </li>
+    </ul>
+    
+</div>
+
+<div ng-show="page_poitem_show">
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" ng-click="po_page = true;
+                    page_poitem_show = false">Back</a>
+                <!--<button class="btn navbar-brand " ng-click="ApprovePO(po_index)">Approve</button>-->
+            </div>
+        </div>
+    </div>
+    <br><br><br><br>
+    <h4> Purchase Order for {{poitems.PO_NUMBER}}/{{poitems.PO_ITEM}}</h4>
+    <div class="">
+        <table class="table table-hover">
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>PO_NUMBER</td>
+                    <td><strong>{{poitems.PO_NUMBER}}</strong></td>            
+                </tr> 
+                <tr>
+                    <td>2</td>
+                    <td>PO_ITEM</td>
+                    <td>{{poitems.PO_ITEM}}</td>            
+                </tr> 
+                <tr>
+                    <td>3</td>
+                    <td>MATERIAL</td>
+                    <td><a href="">{{poitems.PUR_MAT}}</a></td>            
+                </tr> 
+                <tr>
+                    <td>4</td>
+                    <td>SHORT_TEXT</td>
+                    <td>{{poitems.SHORT_TEXT}}</td>            
+                </tr> 
+                <tr>
+                    <td>5</td>
+                    <td>MAT_GRP</td>
+                    <td>{{poitems.MAT_GRP}}</td>            
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>DISP_QUAN</td>
+                    <td>{{poitems.DISP_QUAN}}</td>            
+                </tr> 
+                <tr>
+                    <td>7</td>
+                    <td>STORE_LOC</td>
+                    <td>{{poitems.STORE_LOC}}</td>            
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td>NET_PRICE</td>
+                    <td>{{poitems.NET_PRICE}}</td>            
+                </tr>
+                <tr>
+                    <td>9</td>
+                    <td>PRICE_UNIT</td>
+                    <td>{{poitems.PRICE_UNIT}}</td>            
+                </tr>
+                <tr>
+                    <td>10</td>
+                    <td>PLANT</td>
+                    <td>{{poitems.PLANT}}</td>            
+                </tr>
+                <tr>
+                    <td>11</td>
+                    <td>UNIT</td>
+                    <td>{{poitems.UNIT}}</td>            
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+</div>

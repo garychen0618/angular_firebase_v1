@@ -1,12 +1,23 @@
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#/rmhome/setting">Back</a>
+            </div>
+        </div>
+</div>
+<br>
+<br>
+<br>
+<br>
 <div class="list-group">
     <a class="list-group-item active">
-        SAP Configuration Lists
+        Device Lists
     </a>
 </div>
 <div class="list-group">
     <a class="list-group-item" ng-repeat="(DeviceID,device) in devices">
         <h4 class="list-group-item-heading">{{device.model}} | {{device.platform}} | {{device.version}}</h4>
-        <span class="badge"><i class="glyphicon glyphicon-remove" ng-click="DeleteDevice(DeviceID)"></i></span>
+        <span class="badge" ng-click="DeleteDevice(DeviceID)"><i class="glyphicon glyphicon-remove"></i></span>
         <p class="list-group-item-text">UUID:{{device.uuid}}</p>
     </a>
 </div>

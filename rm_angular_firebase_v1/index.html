@@ -2,6 +2,7 @@
 <html lang="en" ng-app="myApp">
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <title>Rapid Solution App</title>
   <link rel="stylesheet" href="css/app.css"/>
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
@@ -12,7 +13,7 @@
   <link rel="stylesheet" href="styles/main.css">
 </head>
 <body ng-cloak>
-
+<!--<div ng-include="'partials/nav.html'"></div>-->
 <!--  <ul class="menu">
     <li><a href="#/home">home</a></li>
     <li><a href="#/rmhome">rmhome</a></li>
@@ -21,22 +22,29 @@
     <li ng-show-auth="['logout','error']"><a href="#/login">login</a></li>
     <li ng-show-auth="'login'"><a href="#/account">account</a></li>
   </ul>-->
-  <ul class="nav nav-tabs">
-    <li><a href="#/rmhome" >RM-Home</a></li>
+  
+<!--  <nav class="navbar navbar-default navbar-fixed-top pull-right" role="navigation">
+  <div class="container">
+    <ul class="nav nav-tabs">
     <li class="dropdown">
     	<a data-toggle="dropdown" class="dropdown-toggle"><b class="glyphicon glyphicon-list"></b></a>
         	<ul class="dropdown-menu">
-            	<li><a href="#/setting" >Device</a></li>
+                <li ng-show-auth="'login'"><a href="#/rmhome" >RM-Home</a></li>    
+            	<li ng-show-auth="'login'"><a href="#/setting" >Device</a></li>
+                <li ng-show-auth="'login'"><a href="#/con_list">con_list</a></li>
+                <li ng-show-auth="['logout','error']"><a href="#/login" >login</a></li>
+                <li ng-show-auth="'login'"><a href="#/account" >account</a></li>
                 <li><a href="#/chat" >Chat</a></li>
                 <li><a href="#/home">Home</a></li>
-                <li><a href="#/con_list">con_list</a></li>
                 <li class="divider"></li>
-                <!--<li><a href="#/sap_configure">SAP SYS Configuration</a></li>-->
-            </ul>
+                <li><a href="#/sap_configure">SAP SYS Configuration</a></li>
+                </ul>
     </li>
     <li ng-show-auth="['logout','error']"><a href="#/login" >login</a></li>
     <li ng-show-auth="'login'"><a href="#/account" >account</a></li>
   </ul>
+  </div>
+  </nav>-->
   <div ng-view></div> 
 
 <!--  <div>AngularFire-seed v<span app-version></span></div>-->

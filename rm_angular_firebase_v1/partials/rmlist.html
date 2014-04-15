@@ -14,13 +14,24 @@ and open the template in the editor.
         <div>{{rmlist}}</div>
     </body>
 </html>-->
-
+<!--<div ng-include="'partials/nav.html'"></div>-->
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <a href="#/rmhome/setting" class="navbar-text navbar-left glyphicon glyphicon-cog"></a>
+  	<a class="navbar-text text-muted">Rapid Mobile</a>
+  </div>
+    
+</nav>
+<br>
+<br>
+<br>
+<br>
 <div class="container posts-page">
 <!--    <div class="post row" ng-repeat="(RmlistId,Rmlist) in rmlists">
         {{Rmlist.id}},{{RmlistId}}
     </div>-->
     <li class="list-group-item" ng-repeat="(rmId1,rm) in rmlist">
-        <span class="badge">{{rm.count}}</span>{{rmId1}}
-        <a href="#/rmlist/{{rm.id}}">{{rm.name}}</a>
+        <span class="badge">{{rm.count}}</span>
+        <a href="#/rmhome/{{rm.id}}"><b class="{{rm.icon_name}}" ></b></>    {{rm.name}}</a>
     </li>
 </div>

@@ -1,0 +1,21 @@
+<div class="list-group">
+    <h4>Configure List</h4>
+    <a class="list-group-item" ng-repeat="(ConID,Con) in con_list">
+        <h4 class="list-group-item-heading">{{Con.REL_CODE}} | {{Con.REL_GROUP}}</h4>
+        <i class="glyphicon glyphicon-remove right" ng-click="DeleteCon(ConID)"></i>
+    </a>
+</div>
+<form role="form">
+  <div class="form-group">
+    <label for="Release_Code">Release Code</label>
+    <input type="text" class="form-control" ng-model="REL_CODE" placeholder="Release Code">
+  </div>
+  <div class="form-group">
+    <label for="Release_Group">Release Group</label>
+    <input type="text" class="form-control" ng-model="REL_GROUP" placeholder="Release Group">
+  </div>
+  <p ng-show="err" class="error">{{err}}</p>
+    <button type="submit" class="btn btn-default" ng-click="AddConList()">Submit</button>
+    <button type="submit" class="btn btn-default" ng-click="BackList()">Back</button>
+<!--    <a class="navbar-brand" href="#/rmhome/poa">Back</a>-->
+</form>
