@@ -11,13 +11,18 @@ angular.module('myApp.routes', ['ngRoute'])
          controller: 'HomeCtrl'
       });
       
-      $routeProvider.when('/sap_configure', {
+      $routeProvider.when('/rmhome/setting', {
+         authRequired: true,
+         templateUrl: 'partials/setting.html'
+      });
+      
+      $routeProvider.when('/rmhome/setting/con_list/sap_configure', {
          authRequired: true,
          templateUrl: 'partials/sap_configure.html',
          controller: 'sapConfigureCtrl'
       });
       
-      $routeProvider.when('/con_list', {
+      $routeProvider.when('/rmhome/setting/con_list', {
          authRequired: true,
          templateUrl: 'partials/con_list.html',
          controller: 'ConListCtrl'
@@ -40,13 +45,13 @@ angular.module('myApp.routes', ['ngRoute'])
          controller: 'ChatCtrl'
       });
       
-      $routeProvider.when('/setting', {
+      $routeProvider.when('/rmhome/setting/device', {
          authRequired: true,
          templateUrl: 'partials/device.html',
          controller: 'DeviceCtrl'
       });
 
-      $routeProvider.when('/account', {
+      $routeProvider.when('/rmhome/setting/userprofile', {
          authRequired: true, // must authenticate before viewing this page
          templateUrl: 'partials/account.html',
          controller: 'AccountCtrl'
@@ -56,6 +61,24 @@ angular.module('myApp.routes', ['ngRoute'])
          templateUrl: 'partials/login.html',
          controller: 'LoginCtrl'
       });
+      
+      $routeProvider.when('/rmhome/poa', {
+         authRequired: true,
+         templateUrl: 'partials/poa.html',
+         controller: 'POACtrl'
+      });
+      
+      $routeProvider.when('/rmhome/poa/new', {
+         authRequired: true,
+         templateUrl: 'partials/ponew.html',
+         controller: 'PONewCtrl'
+      });
+      
+      $routeProvider.when('/rmhome/poa/rel', {
+         authRequired: true,
+         templateUrl: 'partials/po_rel.html',
+         controller: 'PORelCtrl'
+      });
 
-      $routeProvider.otherwise({redirectTo: '/home'});
+      $routeProvider.otherwise({redirectTo: '/rmhome'});
    }]);

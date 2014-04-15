@@ -10,11 +10,89 @@ angular.module('myApp.controllers', [])
   .controller('RmhomeCtrl', ['$scope', 'syncData', function($scope, syncData) {
       $scope.rmlist = syncData('rmapp', 10);
    }])
+  
+  .controller('POACtrl', ['$scope', 'syncData','loginService', function($scope, syncData,loginService) {
+      $scope.polists = syncData('user06/0001', 10);
+      $scope.po_lists_page = 'true';
+      $scope.po_page = 'false';
+      $scope.page_poitem_show = 'false';
+      var username = loginService.firstPartOfEmail($scope.auth.user.email);
+      $scope.DisplayPO = function(relcode,po){
+          $scope.pos = po;
+          $scope.rel_code = relcode;
+          $scope.po_lists_page = 'false';
+          $scope.po_page = 'true';
+      };
+      $scope.DisplayItem = function(poitem){
+          $scope.poitems = poitem;
+          $scope.po_lists_page = 'false';
+          $scope.po_page = 'false';
+          $scope.page_poitem_show = 'true';
+      };
+      $scope.ApprovePO = function(rel_code,po_number){
+          console.log("Rel_Code:"+rel_code);
+          $scope.release_po = syncData('Task/OnTime', 10);
+          var po_data = {
+              EVENT_ID:'0002',
+              PO_REL_CODE:rel_code,
+              PURCHASEORDER:po_number,
+              USER_ID:username,
+              METHOD:'post'
+          };
+          $scope.release_po.$add(po_data);
+          $scope.po_lists_page = 'true';
+          $scope.po_page = 'false';
+      };
+   }])
    
    .controller('TestCtrl', ['$scope', 'syncData', function($scope, syncData) {
       $scope.rmlist = syncData('Task', 10);
    }])
-   
+  
+  .controller('PONewCtrl', ['$scope', 'syncData','loginService','$location', function($scope, syncData, loginService,$location) {
+      
+      $scope.REL_CODE = null;
+      $scope.REL_GROUP = null;
+      $scope.err = null;
+      var username = loginService.firstPartOfEmail($scope.auth.user.email);
+      
+      console.log("Release Code:"+$scope.REL_CODE);
+      $scope.con_list = syncData('Task/Schedule', 10);
+      $scope.AddConList = function(){
+          if(!$scope.REL_CODE)
+          {
+              $scope.err = 'Please Enter a Release Code!';
+          }
+          else if (!$scope.REL_GROUP)
+          {
+              $scope.err = 'Please Enter a Release Group!';
+          }
+          else
+          {
+              //console.log("Release Code2:"+$scope.REL_CODE);
+              var con_lists = {
+                    EVENT_ID:'0001',
+                    REL_CODE:$scope.REL_CODE,
+                    REL_GROUP:$scope.REL_GROUP,
+                    USER_ID:username,
+                    METHOD:'put'
+              };
+              $scope.con_list.$add(con_lists);
+          }
+      };
+      $scope.DeleteCon = function(conid){
+          $scope.con_list.$remove(conid);
+      };
+      $scope.BackList = function(){
+          $location.path('/rmhome/poa');
+      };
+   }])
+  
+  .controller('PORelCtrl', ['$scope', 'syncData','loginService', function($scope, syncData, loginService) {
+        $scope.name = loginService.firstPartOfEmail($scope.auth.user.email);
+        $scope.rel_po_lists = syncData('0002/'+$scope.name, 10);
+   }])
+  
   .controller('sapConfigureCtrl', ['$scope', 'syncData','loginService','$location', function($scope, syncData,loginService,$location) {
       //$scope.sapConfigure = syncData('sapConfigure', 10);
 //      console.log($scope.auth.user.uid);
@@ -29,7 +107,7 @@ angular.module('myApp.controllers', [])
         $scope.AddConfigure = function(){
             if($scope.test){
                 $scope.sapConfigure.$add($scope.test);
-                $location.path('/con_list');
+                $location.path('/rmhome/setting/con_list');
             }
         }
    }])
@@ -39,7 +117,7 @@ angular.module('myApp.controllers', [])
          $scope.name = loginService.firstPartOfEmail($scope.auth.user.email);
          $scope.con_lists = syncData('sapConfigure/'+$scope.name, 10);
          $scope.NewConfigure = function(){
-             $location.path('/sap_configure');
+             $location.path('/rmhome/setting/con_list/sap_configure');
          };
          $scope.DeleteCon = function(conid){
              //console.log(conid);
@@ -160,7 +238,7 @@ angular.module('myApp.controllers', [])
 
    .controller('AccountCtrl', ['$scope', 'loginService', 'changeEmailService', 'firebaseRef', 'syncData', '$location', 'FBURL', function($scope, loginService, changeEmailService, firebaseRef, syncData, $location, FBURL) {
       $scope.syncAccount = function() {
-         $scope.user = {};
+         //$scope.user = {};
          syncData(['users', $scope.auth.user.uid]).$bind($scope, 'user').then(function(unBind) {
             $scope.unBindAccount = unBind;
          });
